@@ -1,18 +1,20 @@
+#This program was created by Cristian Bodnar
+#This program creates the test files for the Java Lab
+#and initialises them properly
 #!/bin/bash
-rpm -qa | grep rpm 
 
+#creates the run-tests files in every task directory
 for d in task*/ ; do
 cat > "$d"/run-tests << EOF
 #!/bin/bash
 
-for f in *.java; do javac \$f; done
-
-
+#Run the tests here
 EOF
+#execute permission
 (chmod +x "$d"/run-tests)
 done
 
-
+#creates the run-all-tests file
 cat > ./run-all-tests << EOF
 #!/bin/bash
 for task in task*
@@ -23,4 +25,5 @@ do
   (cd \$task; ./run-tests) 2>&1
 done | less
 EOF
+#execute permission
 (chmod +x ./run-all-tests)

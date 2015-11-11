@@ -1,0 +1,16 @@
+#This program was created by Cristian Bodnar
+#It runs the program, without compiling!!!!
+#Moreover, it adds java ProgramName arguments to the test file
+#!/bin/bash
+
+args="java" #string of the arguments + name of the program
+for var in "$@"
+do
+    args+=" "
+    args+="$var"
+done
+
+#Add the java... line at the end of file
+echo "$args" >> ./run-tests
+#Run the program/ Evaluates the string
+eval "$args"
