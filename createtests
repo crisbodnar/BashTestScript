@@ -1,0 +1,26 @@
+#!/bin/bash
+rpm -qa | grep rpm 
+
+for d in task*/ ; do
+cat > "$d"/run-tests << EOF
+#!/bin/bash
+
+for f in *.java; do javac \$f; done
+
+
+EOF
+(chmod +x "$d"/run-tests)
+done
+
+
+cat > ./run-all-tests << EOF
+#!/bin/bash
+for task in task*
+do
+  echo "============================="
+  echo "Task \$task"
+  echo "============================="
+  (cd \$task; ./run-tests) 2>&1
+done | less
+EOF
+(chmod +x ./run-all-tests)
